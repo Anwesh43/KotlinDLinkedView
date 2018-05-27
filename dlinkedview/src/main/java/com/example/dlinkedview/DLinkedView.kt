@@ -38,7 +38,8 @@ class DLinkedView(ctx : Context) : View(ctx) {
             scales[j] += dir * 0.1f
             if (Math.abs(scales[j] - prevScale) > 1) {
                 scales[j] = prevScale + dir
-                if (Math.abs(scales[j] - prevScale) > 1) {
+                j += dir.toInt()
+                if (j == -1 || j == scales.size) {
                     j -= dir.toInt()
                     dir = 0f
                     prevScale = scales[j]
@@ -104,6 +105,7 @@ class DLinkedView(ctx : Context) : View(ctx) {
             val w : Float = canvas.width.toFloat()
             val h : Float = canvas.height.toFloat()
             val gap : Float = h / D_NODES
+            paint.style = Paint.Style.STROKE
             paint.strokeWidth = Math.min(w, h)/45
             paint.strokeCap = Paint.Cap.ROUND
             paint.color = Color.parseColor("#4CAF50")
@@ -169,7 +171,7 @@ class DLinkedView(ctx : Context) : View(ctx) {
         private val dLinked : DLinked = DLinked(0)
 
         fun render(canvas : Canvas, paint : Paint) {
-            canvas.drawColor(Color.parseColor("#e53935"))
+            canvas.drawColor(Color.parseColor("#673AB7"))
             dLinked.draw(canvas, paint)
             animator.animate {
                 dLinked.update {
