@@ -158,4 +158,27 @@ class DLinkedView(ctx : Context) : View(ctx) {
             curr.startUpdating(startcb)
         }
     }
+
+    data class Renderer (var view : DLinkedView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val dLinked : DLinked = DLinked(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#e53935"))
+            dLinked.draw(canvas, paint)
+            animator.animate {
+                dLinked.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            dLinked.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
