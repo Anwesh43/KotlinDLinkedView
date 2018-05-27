@@ -134,4 +134,28 @@ class DLinkedView(ctx : Context) : View(ctx) {
             return this
         }
     }
+
+    data class DLinked(var i : Int) {
+
+        var curr : DNode = DNode(0)
+
+        var dir : Int = 1
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            curr.draw(canvas, paint)
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            curr.update {scale ->
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                stopcb(scale)
+            }
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            curr.startUpdating(startcb)
+        }
+    }
 }
