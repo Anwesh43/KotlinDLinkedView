@@ -4,6 +4,7 @@ package com.example.dlinkedview
  * Created by anweshmishra on 27/05/18.
  */
 
+import android.app.Activity
 import android.content.Context
 import android.view.*
 import android.graphics.*
@@ -181,6 +182,14 @@ class DLinkedView(ctx : Context) : View(ctx) {
             dLinked.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : DLinkedView  {
+            val view : DLinkedView = DLinkedView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
